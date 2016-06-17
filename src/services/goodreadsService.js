@@ -18,7 +18,6 @@ var goodreadsService = function () {
                 str += chunk;
             });
             response.on('end', function () {
-                console.log(str);
                 parser.parseString(str, function (err, result){
                     cb(null, result.GoodreadsResponse.book);
                 });
@@ -30,7 +29,7 @@ var goodreadsService = function () {
     };
     return {
         getBookById: getBookById
-    }
+    };
 };
 
 module.exports = goodreadsService;

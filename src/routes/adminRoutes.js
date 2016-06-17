@@ -1,7 +1,23 @@
 var express = require('express');
-
 var adminRouter = express.Router();
 var mongodb = require('mongodb').MongoClient;
+
+var beers = [{
+    name: 'Lone Star',
+    style: 'Lager',
+    brewery: 'Pabst Brewing Company',
+    breweryId: 'AKyyYN',
+    beerId: 'HPC9eo',
+    read: false
+}, {
+    name: 'Shamrock\'n Rye Ale',
+    style: 'Rye Ale',
+    brewery: 'Sierra Nevada Brewing Company',
+    breweryId: 'nHLlnK',
+    beerId: '1qx64W',
+    read: false
+}];
+
 var books = [{
     title: 'War and Peace',
     genre: 'Historical Fiction',
@@ -58,7 +74,21 @@ var router = function(nav) {
                     db.close();
                 });
             });
-            //res.send('Inserting books');
+            res.send('Inserting books');
+        });
+
+    adminRouter.route('/addBeers')
+        .get(function(req, res) {
+            var url = 'mongodb://localhost:27017/libraryApp';
+
+            mongodb.connect(url, function(err, db) {
+                var collection = db.collection('beers');
+                collection.insertMany(beers, function(err, results) {
+                    res.send(results);
+                    db.close();
+                });
+            });
+            res.send('Inserting beers');
         });
 
     return adminRouter;

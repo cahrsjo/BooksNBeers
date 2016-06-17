@@ -1,5 +1,5 @@
 var mongodb = require('mongodb').MongoClient;
-var objectId = require('mongodb').ObjectID;
+var ObjectId = require('mongodb').ObjectID;
 
 var bookController = function (bookService, nav) {
     
@@ -15,7 +15,7 @@ var bookController = function (bookService, nav) {
 
         mongodb.connect(url, function(err, db) {
             var collection = db.collection('books');
-            console.log(collection);
+            //console.log(collection);
             collection.find({}).toArray(function(err, results) {
                 res.render('bookListView', {
                     title: 'Books',
@@ -28,7 +28,7 @@ var bookController = function (bookService, nav) {
     };
 
     var getById = function(req, res) {
-        var id = new objectId(req.params.id);
+        var id = new ObjectId(req.params.id);
         var url = 'mongodb://localhost:27017/libraryApp';
 
         mongodb.connect(url, function(err, db) {
